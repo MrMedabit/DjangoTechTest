@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+</head>
+<body>
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <ul class="list-group">
+                {% for user in users %}
+                    <li class="list-group-item">
+                        {{user.username}} {{user.date_joined|date:'d M, Y'}}
+                        <form method="POST" id="deleteForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="userDelete">
+                            <input type="hidden" name="id" value="{{user.id}}">
+                            <button onclick="return confirm('Seguro que quieres eliminar a {{user.username}}?')">Eliminar</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
